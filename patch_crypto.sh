@@ -1,0 +1,3 @@
+#!/bin/bash
+sed -i 's/val existingKey = keyStore.getEntry("secret", null) as? KeyStore.SecretKeyEntry/try {\n            val existingKey = keyStore.getEntry("secret", null) as? KeyStore.SecretKeyEntry\n            return existingKey?.secretKey ?: createSecretKey()\n        } catch (e: Exception) {\n            try { keyStore.deleteEntry("secret") } catch (e2: Exception) {}\n            return createSecretKey()\n        }/g' app/src/main/java/com/hyper/note/android/security/CryptoManager.kt
+sed -i 's/return existingKey?.secretKey ?: createSecretKey()//g' app/src/main/java/com/hyper/note/android/security/CryptoManager.kt
